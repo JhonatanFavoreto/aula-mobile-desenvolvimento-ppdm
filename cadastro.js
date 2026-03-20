@@ -6,7 +6,6 @@ export default function Cadastro() {
 
   const [nome, setNome ] = useState('');
   const [email, setEmail] = useState('');
-  const [matricula, setMatricula] = useState('')
   const [senha, setSenha] = useState('');
 
   return (
@@ -15,10 +14,10 @@ export default function Cadastro() {
 
       <View style={styles.containerInputs}>
         <View>
-          <Text style={styles.textInput}>Nome:</Text>
+          <Text style={styles.textInput}>Nome de Usuário:</Text>
           <TextInput
           style={styles.inputType}
-          placeholder='Digite seu nome'
+          placeholder='Crie seu nickname'
           secureTextEntry={false}
           value={nome}
           onChangeText={setNome}>
@@ -40,28 +39,20 @@ export default function Cadastro() {
         </View>
 
         <View>
-          <Text style={styles.textInput}>Matricula:</Text>
-          <TextInput
-          style={styles.inputType}
-          placeholder='Digite seu numero de Matricula'
-          secureTextEntry={false}
-          keyboardType='numeric'
-          value={matricula}
-          onChangeText={setMatricula}>
-          </TextInput>
-        </View>
-
-        <View>
           <Text style={styles.textInput}>Senha:</Text>
           <TextInput
           style={styles.inputType}
-          placeholder='Digite sua senha'
+          placeholder='Crie sua senha'
           secureTextEntry={true}
           keyboardType='numeric'
           value={senha}
           onChangeText={setSenha}>
           </TextInput>
-        </View>
+              </View>
+
+              <View style={styles.button}>
+                <Text style={styles.textButton}>Cadastrar</Text>
+              </View>
 
       </View>
       <StatusBar style="auto" />
@@ -98,6 +89,18 @@ const styles = StyleSheet.create({
   inputType: {
     backgroundColor: '#fff',
     borderRadius: 20,
+  },
+  button: {
+    backgroundColor: '#007bff',
+    borderRadius: 20,
+    padding: 10,
+    alignItems: 'center',
+  },
+  textButton: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
   }
+
 
 });
