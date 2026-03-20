@@ -1,111 +1,129 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SafeAreaView, View, Text, FlatList, StyleSheet } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import Cadastro from './cadastro';
+import { View, Text, StyleSheet, Image, FlatList, SafeAreaView } from 'react-native';
 
-const jogosMock = [
-    { id: '1', nome: 'The Legend of Zelda: Breath of the Wild', categoria: 'Aventura' },
-    { id: '2', nome: 'God of War', categoria: 'Ação' },
-    { id: '3', nome: 'Minecraft', categoria: 'Sandbox' },
-    { id: '4', nome: 'FIFA 23', categoria: 'Esportes' },
-    { id: '5', nome: 'Hades', categoria: 'Roguelike' },
+const jogos = [
+    {
+        id: '1',
+        title: 'Resident Evil 4',
+        description:
+            'Resident Evil 4 é um jogo eletrônico de survival horror desenvolvido e publicado pela Capcom para o GameCube em 2005.',
+        image: require('./assets/re4.png'),
+    },
+    {
+        id: '2',
+        title: 'Half-Life 2',
+        description:
+            'Half-Life 2 é um jogo de tiro em primeira pessoa de 2004, desenvolvido e publicado pela Valve Corporation.',
+        image: require('./assets/hf2.png'),
+    },
+    {
+        id: '3',
+        title: 'Undertale',
+        description:
+            'Undertale é um RPG eletrônico criado pelo desenvolvedor independente norte-americano Toby Fox.',
+        image: require('./assets/ut.png'),
+    },
+    {
+        id: '4',
+        title: 'BioShock Infinite',
+        description:
+            'BioShock Infinite é um jogo eletrônico de tiro em primeira pessoa desenvolvido pela Irrational Games e publicado pela 2K Games.',
+        image: require('./assets/bsi.png'),
+    },
 ];
 
-function JogosScreen() {
+export default function App() {
     const renderItem = ({ item }) => (
         <View style={styles.card}>
-            <Text style={styles.cardTitle}>{item.nome}</Text>
-            <Text style={styles.cardSubtitle}>{item.categoria}</Text>
+            <Image source={item.image} style={styles.cardImage} />
+            <View style={styles.textContainer}>
+                <Text style={styles.description}>{item.description}</Text>
+            </View>
         </View>
     );
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.logo}>GAMES{'\n'}FAVORITOS</Text>
+                <View style={styles.profileIcon} />
+            </View>
+
             <FlatList
-                data={jogosMock}
+                data={jogos}
                 keyExtractor={(item) => item.id}
                 renderItem={renderItem}
-                contentContainerStyle={styles.listContent}
+                contentContainerStyle={styles.listContainer}
                 showsVerticalScrollIndicator={false}
             />
+
+            <View style={styles.footer}>
+                <Text style={styles.footerText}>
+                    © 2026 Games-Favoritos. Todos os direitos reservados.
+                </Text>
+            </View>
         </SafeAreaView>
-    );
-}
-
-function ConfigScreen() {
-    return (
-        <SafeAreaView style={styles.centerScreen}>
-            <Text style={styles.configText}>Tela de Configurações</Text>
-        </SafeAreaView>
-    );
-}
-
-const Tab = createBottomTabNavigator();
-
-export default function App() {
-    return (
-        <NavigationContainer>
-            <StatusBar style="auto" />
-            <Tab.Navigator
-                screenOptions={{
-                    headerStyle: { backgroundColor: '#282c34' },
-                    headerTintColor: '#fff',
-                    tabBarActiveTintColor: '#2196f3',
-                    tabBarInactiveTintColor: '#777',
-                    tabBarStyle: { backgroundColor: '#f8f8f8' },
-                }}>
-                <Tab.Screen name="Jogos" component={JogosScreen} />
-                <Tab.Screen name="Configurações" component={Cadastro} />
-            </Tab.Navigator>
-        </NavigationContainer>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#121212',
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingHorizontal: 20,
+        paddingTop: 40,
+        paddingBottom: 20,
     },
-    safeArea: {
-        flex: 1,
-        backgroundColor: '#f0f2f5',
+    logo: {
+        color: '#1E90FF',
+        fontSize: 28,
+        fontWeight: '900',
+        fontStyle: 'italic',
+        lineHeight: 30,
+        fontFamily: 'serif',
     },
-    listContent: {
-        padding: 16,
+    profileIcon: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: '#666',
+    },
+    listContainer: {
+        paddingHorizontal: 20,
     },
     card: {
-        backgroundColor: '#fff',
-        borderRadius: 12,
-        padding: 14,
-        marginBottom: 12,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 3,
-    },
-    cardTitle: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: '#1f1f1f',
-        marginBottom: 4,
-    },
-    cardSubtitle: {
-        fontSize: 14,
-        color: '#555',
-    },
-    centerScreen: {
-        flex: 1,
+        flexDirection: 'row',
+        marginBottom: 30,
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#f0f2f5',
     },
-    configText: {
-        fontSize: 18,
-        color: '#333',
-        fontWeight: '600',
+    cardImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 12,
+        backgroundColor: '#333',
+    },
+    textContainer: {
+        flex: 1,
+        marginLeft: 15,
+    },
+    description: {
+        color: '#fff',
+        fontSize: 14,
+        lineHeight: 20,
+        fontWeight: 'bold',
+    },
+    footer: {
+        paddingVertical: 20,
+        alignItems: 'center',
+    },
+    footerText: {
+        color: '#fff',
+        fontSize: 10,
+        opacity: 0.8,
     },
 });
