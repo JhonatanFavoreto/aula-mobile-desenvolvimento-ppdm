@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SafeAreaView, View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import { SafeAreaView, View, Text, FlatList, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import Cadastro from './cadastro';
 
@@ -45,20 +45,9 @@ function ConfigScreen() {
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-    const [showCadastro, setShowCadastro] = useState(false);
-
-    if (showCadastro) {
-        return (
-            <View style={styles.container}>
-                <Button title='Voltar' onPress={() => setShowCadastro(false)} />
-                <Cadastro />
-            </View>
-        );
-    }
-
     return (
         <NavigationContainer>
-            <StatusBar style='auto' />
+            <StatusBar style="auto" />
             <Tab.Navigator
                 screenOptions={{
                     headerStyle: { backgroundColor: '#282c34' },
@@ -67,8 +56,8 @@ export default function App() {
                     tabBarInactiveTintColor: '#777',
                     tabBarStyle: { backgroundColor: '#f8f8f8' },
                 }}>
-                <Tab.Screen name='Jogos' component={JogosScreen} />
-                <Tab.Screen name='Config' component={ConfigScreen} />
+                <Tab.Screen name="Jogos" component={JogosScreen} />
+                <Tab.Screen name="Configurações" component={Cadastro} />
             </Tab.Navigator>
         </NavigationContainer>
     );
