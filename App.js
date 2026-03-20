@@ -17,7 +17,7 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Text>Open up App.js to start working on your app!</Text>
+            <Text>Games Favoritos, Sua lista preferida de jogos!</Text>
             <Button title="Ir para cadastro" onPress={() => setShowCadastro(true)} />
             <StatusBar style="auto" />
         </View>
