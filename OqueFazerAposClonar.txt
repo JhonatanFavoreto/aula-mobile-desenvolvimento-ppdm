@@ -1,0 +1,8 @@
+1) Abra terminal na pasta do projeto.
+2) rodar npm install
+3) rodar npm install @react-navigation/native @react-navigation/bottom-tabs
+4) rodar npx expo install react-native-screens react-native-safe-area-context
+5) rodar npx expo start
+6) abrir Expo Go no celular e escanear o QR code (ou usar emulator)
+7) testar abas Home/Cadastro
+8) opcional: abrir App.js e editar texto ou adicionar campos no cadastro
