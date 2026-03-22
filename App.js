@@ -1,5 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList, SafeAreaView } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    FlatList,
+    SafeAreaView,
+    TouchableOpacity,
+} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Cadastro from './cadastro';
 
 const jogos = [
     {
@@ -32,7 +43,7 @@ const jogos = [
     },
 ];
 
-export default function App() {
+function HomeScreen({ navigation }) {
     const renderItem = ({ item }) => (
         <View style={styles.card}>
             <Image source={item.image} style={styles.cardImage} />
@@ -45,9 +56,15 @@ export default function App() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.logo}>GAMES{'\n'}FAVORITOS</Text>
+                <Text style={styles.logo}>GAMES{`\n`}FAVORITOS</Text>
                 <View style={styles.profileIcon} />
             </View>
+
+            <TouchableOpacity
+                style={styles.navButton}
+                onPress={() => navigation.navigate('Cadastro')}>
+                <Text style={styles.navButtonText}>Ir para Cadastro</Text>
+            </TouchableOpacity>
 
             <FlatList
                 data={jogos}
@@ -63,6 +80,27 @@ export default function App() {
                 </Text>
             </View>
         </SafeAreaView>
+    );
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+    return (
+        <NavigationContainer>
+            <Tab.Navigator
+                initialRouteName='Home'
+                screenOptions={{
+                    headerStyle: { backgroundColor: '#121212' },
+                    headerTintColor: '#fff',
+                    tabBarStyle: { backgroundColor: '#121212', borderTopColor: '#333' },
+                    tabBarActiveTintColor: '#1E90FF',
+                    tabBarInactiveTintColor: '#aaa',
+                }}>
+                <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Home' }} />
+                <Tab.Screen name='Cadastro' component={Cadastro} options={{ title: 'Cadastro' }} />
+            </Tab.Navigator>
+        </NavigationContainer>
     );
 }
 
@@ -92,6 +130,18 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 25,
         backgroundColor: '#666',
+    },
+    navButton: {
+        marginHorizontal: 20,
+        marginBottom: 10,
+        backgroundColor: '#1E90FF',
+        borderRadius: 10,
+        paddingVertical: 10,
+        alignItems: 'center',
+    },
+    navButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
     },
     listContainer: {
         paddingHorizontal: 20,
