@@ -60,10 +60,34 @@ function HomeScreen({ navigation }) {
                 <View style={styles.profileIcon} />
             </View>
 
+            <View style={styles.heroSection}>
+                <Text style={styles.heroTitle}>Bem-vindo ao seu cofre pessoal de memórias.</Text>
+                <Text style={styles.heroSubtitle}>
+                    Crie seu perfil para salvar os universos que você explorou e as histórias que
+                    marcaram a sua jornada.
+                </Text>
+            </View>
+
+            <Text style={styles.sectionTitle}>NOVO JOGADOR</Text>
+
+            <View style={styles.playerCard}>
+                <View style={styles.playerProfileLarge} />
+                <View style={styles.playerFields}>
+                    <Text style={styles.fieldLabel}>Nome de Usuário:</Text>
+                    <Text style={styles.fieldValue}>Crie seu nick</Text>
+
+                    <Text style={[styles.fieldLabel, { marginTop: 8 }]}>E-mail:</Text>
+                    <Text style={styles.fieldValue}>Escreva seu e-mail</Text>
+
+                    <Text style={[styles.fieldLabel, { marginTop: 8 }]}>Senha:</Text>
+                    <Text style={styles.fieldValue}>Crie sua senha</Text>
+                </View>
+            </View>
+
             <TouchableOpacity
-                style={styles.navButton}
+                style={styles.createAccountButton}
                 onPress={() => navigation.navigate('Cadastro')}>
-                <Text style={styles.navButtonText}>Ir para Cadastro</Text>
+                <Text style={styles.createAccountButtonText}>CRIE SUA CONTA</Text>
             </TouchableOpacity>
 
             <FlatList
@@ -142,6 +166,71 @@ const styles = StyleSheet.create({
     navButtonText: {
         color: '#fff',
         fontWeight: 'bold',
+        fontSize: 16,
+    },
+    playerCard: {
+        backgroundColor: '#1a1a1a',
+        borderRadius: 16,
+        padding: 18,
+        marginHorizontal: 20,
+        marginBottom: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    playerProfileLarge: {
+        width: 84,
+        height: 84,
+        borderRadius: 42,
+        backgroundColor: '#666',
+        marginRight: 16,
+    },
+    playerFields: {
+        flex: 1,
+    },
+    fieldLabel: {
+        color: '#8da2c3',
+        fontSize: 12,
+        fontWeight: '700',
+    },
+    fieldValue: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    createAccountButton: {
+        marginHorizontal: 20,
+        marginBottom: 18,
+        backgroundColor: '#1e90ff',
+        borderRadius: 14,
+        paddingVertical: 12,
+        alignItems: 'center',
+    },
+    createAccountButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    heroSection: {
+        paddingHorizontal: 20,
+        marginBottom: 16,
+    },
+    heroTitle: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 6,
+    },
+    heroSubtitle: {
+        color: '#ddd',
+        fontSize: 13,
+        lineHeight: 20,
+    },
+    sectionTitle: {
+        color: '#fff',
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginHorizontal: 20,
+        marginBottom: 10,
     },
     listContainer: {
         paddingHorizontal: 20,
@@ -161,11 +250,17 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 15,
     },
-    description: {
+    cardTitle: {
         color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 4,
+    },
+    description: {
+        color: '#ddd',
         fontSize: 14,
         lineHeight: 20,
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
     footer: {
         paddingVertical: 20,
