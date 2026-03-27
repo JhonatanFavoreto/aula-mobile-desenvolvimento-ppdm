@@ -8,6 +8,7 @@ import {
     SafeAreaView,
     TouchableOpacity,
 } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Cadastro from './cadastro';
@@ -56,15 +57,14 @@ function HomeScreen({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.logo}>GAMES{`\n`}FAVORITOS</Text>
-                <View style={styles.profileIcon} />
+                <View style={styles.headerLeft}>
+                    <Text style={styles.logo}>GAMES</Text>
+                    <Text style={styles.logo2}>FAVORITOS</Text>
+                </View>
+                <View style={styles.profileIcon}>
+                    <MaterialIcons name="person" size={45} color="white" />
+                </View>
             </View>
-
-            <TouchableOpacity
-                style={styles.navButton}
-                onPress={() => navigation.navigate('Cadastro')}>
-                <Text style={styles.navButtonText}>Ir para Cadastro</Text>
-            </TouchableOpacity>
 
             <FlatList
                 data={jogos}
@@ -89,7 +89,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <Tab.Navigator
-                initialRouteName='Home'
+                initialRouteName="Home"
                 screenOptions={{
                     headerStyle: { backgroundColor: '#121212' },
                     headerTintColor: '#fff',
@@ -97,8 +97,8 @@ export default function App() {
                     tabBarActiveTintColor: '#1E90FF',
                     tabBarInactiveTintColor: '#aaa',
                 }}>
-                <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Home' }} />
-                <Tab.Screen name='Cadastro' component={Cadastro} options={{ title: 'Cadastro' }} />
+                <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
+                <Tab.Screen name="Cadastro" component={Cadastro} options={{ title: 'Cadastro' }} />
             </Tab.Navigator>
         </NavigationContainer>
     );
@@ -118,6 +118,14 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
     },
     logo: {
+        color: '#86b2df',
+        fontSize: 28,
+        fontWeight: '900',
+        fontStyle: 'italic',
+        lineHeight: 30,
+        fontFamily: 'serif',
+    },
+    logo2: {
         color: '#1E90FF',
         fontSize: 28,
         fontWeight: '900',
@@ -130,6 +138,12 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 25,
         backgroundColor: '#666',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    headerLeft: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
     },
     navButton: {
         marginHorizontal: 20,
