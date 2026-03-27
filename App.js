@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -7,6 +7,7 @@ import {
     FlatList,
     SafeAreaView,
     TouchableOpacity,
+    TextInput,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
@@ -45,12 +46,42 @@ const jogos = [
 ];
 
 function HomeScreen({ navigation }) {
+    const [listaJogos, setListaJogos] = useState(jogos);
+    const [novoTitulo, setNovoTitulo] = useState('');
+    const [novaDescricao, setNovaDescricao] = useState('');
+
+    const adicionarJogo = () => {
+        if (novoTitulo.trim() === '') return;
+        const jogoObjeto = {
+            id: String(Date.now()),
+            title: novoTitulo,
+            description: novaDescricao || 'Descrição não informada.',
+        };
+        setListaJogos([...listaJogos, jogoObjeto]);
+        setNovoTitulo('');
+        setNovaDescricao('');
+    };
+
+    const removerJogo = (idParaRemover) => {
+        const listaFiltrada = listaJogos.filter((item) => item.id !== idParaRemover);
+        setListaJogos(listaFiltrada);
+    };
     const renderItem = ({ item }) => (
         <View style={styles.card}>
-            <Image source={item.image} style={styles.cardImage} />
+            {item.image ? (
+                <Image source={item.image} style={styles.cardImage} />
+            ) : (
+                <View style={[styles.cardImage, styles.cardImagePlaceholder]}>
+                    <Text style={{ color: '#fff', fontSize: 12 }}>No Image</Text>
+                </View>
+            )}
             <View style={styles.textContainer}>
+                <Text style={styles.gameTitle}>{item.title}</Text>
                 <Text style={styles.description}>{item.description}</Text>
             </View>
+            <TouchableOpacity style={styles.botaoRemover} onPress={() => removerJogo(item.id)}>
+                <Text style={styles.textoBotaoRemover}>X</Text>
+            </TouchableOpacity>
         </View>
     );
 
@@ -66,12 +97,35 @@ function HomeScreen({ navigation }) {
                 </View>
             </View>
 
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Título do jogo"
+                    placeholderTextColor="#999"
+                    value={novoTitulo}
+                    onChangeText={setNovoTitulo}
+                />
+                <TextInput
+                    style={[styles.input, { flex: 0.6, marginLeft: 8 }]}
+                    placeholder="Descrição (opcional)"
+                    placeholderTextColor="#999"
+                    value={novaDescricao}
+                    onChangeText={setNovaDescricao}
+                />
+                <TouchableOpacity style={styles.botaoAdicionar} onPress={adicionarJogo}>
+                    <Text style={styles.textoBotaoAdicionar}>+</Text>
+                </TouchableOpacity>
+            </View>
+
             <FlatList
-                data={jogos}
+                data={listaJogos}
                 keyExtractor={(item) => item.id}
                 renderItem={renderItem}
                 contentContainerStyle={styles.listContainer}
                 showsVerticalScrollIndicator={false}
+                ListEmptyComponent={() => (
+                    <Text style={styles.textoVazio}>Nenhum jogo adicionado.</Text>
+                )}
             />
 
             <View style={styles.footer}>
@@ -179,6 +233,63 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 14,
         lineHeight: 20,
+        fontWeight: 'bold',
+    },
+    gameTitle: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '700',
+    },
+    cardImagePlaceholder: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#444',
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        paddingHorizontal: 20,
+        marginBottom: 12,
+        alignItems: 'center',
+    },
+    input: {
+        flex: 1,
+        height: 44,
+        backgroundColor: '#1e1e1e',
+        color: '#fff',
+        borderRadius: 8,
+        paddingHorizontal: 10,
+    },
+    botaoAdicionar: {
+        width: 44,
+        height: 44,
+        backgroundColor: '#1E90FF',
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 8,
+    },
+    textoBotaoAdicionar: {
+        color: '#fff',
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    textoVazio: {
+        textAlign: 'center',
+        color: '#888',
+        fontSize: 16,
+        marginTop: 30,
+    },
+    botaoRemover: {
+        backgroundColor: '#FF3B30',
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 8,
+    },
+    textoBotaoRemover: {
+        color: '#fff',
         fontWeight: 'bold',
     },
     footer: {
